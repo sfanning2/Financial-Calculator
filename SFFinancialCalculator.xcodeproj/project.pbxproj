@@ -22,6 +22,10 @@
 		260AA019184036A300024E9A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 260A9FF8184036A300024E9A /* UIKit.framework */; };
 		260AA021184036A300024E9A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 260AA01F184036A300024E9A /* InfoPlist.strings */; };
 		260AA023184036A300024E9A /* SFFinancialCalculatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 260AA022184036A300024E9A /* SFFinancialCalculatorTests.m */; };
+		260AA02F184037F800024E9A /* SFCalculator.m in Sources */ = {isa = PBXBuildFile; fileRef = 260AA02E184037F800024E9A /* SFCalculator.m */; };
+		260AA03218403D5C00024E9A /* SFPresentValueCalculator.m in Sources */ = {isa = PBXBuildFile; fileRef = 260AA03118403D5C00024E9A /* SFPresentValueCalculator.m */; };
+		260AA0371840497600024E9A /* SFPresentValueCalculatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 260AA0361840497600024E9A /* SFPresentValueCalculatorTests.m */; };
+		260AA03A18404EFC00024E9A /* SFPresentValueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 260AA03918404EFC00024E9A /* SFPresentValueViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +60,13 @@
 		260AA01E184036A300024E9A /* SFFinancialCalculatorTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SFFinancialCalculatorTests-Info.plist"; sourceTree = "<group>"; };
 		260AA020184036A300024E9A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		260AA022184036A300024E9A /* SFFinancialCalculatorTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SFFinancialCalculatorTests.m; sourceTree = "<group>"; };
+		260AA02D184037F800024E9A /* SFCalculator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFCalculator.h; sourceTree = "<group>"; };
+		260AA02E184037F800024E9A /* SFCalculator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFCalculator.m; sourceTree = "<group>"; };
+		260AA03018403D5C00024E9A /* SFPresentValueCalculator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFPresentValueCalculator.h; sourceTree = "<group>"; };
+		260AA03118403D5C00024E9A /* SFPresentValueCalculator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFPresentValueCalculator.m; sourceTree = "<group>"; };
+		260AA0361840497600024E9A /* SFPresentValueCalculatorTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFPresentValueCalculatorTests.m; sourceTree = "<group>"; };
+		260AA03818404EFC00024E9A /* SFPresentValueViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFPresentValueViewController.h; sourceTree = "<group>"; };
+		260AA03918404EFC00024E9A /* SFPresentValueViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFPresentValueViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,7 +133,10 @@
 				260AA00A184036A300024E9A /* SFFirstViewController.m */,
 				260AA00C184036A300024E9A /* SFSecondViewController.h */,
 				260AA00D184036A300024E9A /* SFSecondViewController.m */,
+				260AA03818404EFC00024E9A /* SFPresentValueViewController.h */,
+				260AA03918404EFC00024E9A /* SFPresentValueViewController.m */,
 				260AA00F184036A300024E9A /* Images.xcassets */,
+				260AA02C184037CC00024E9A /* Logic */,
 				260A9FFB184036A300024E9A /* Supporting Files */,
 			);
 			path = SFFinancialCalculator;
@@ -143,6 +157,7 @@
 			isa = PBXGroup;
 			children = (
 				260AA022184036A300024E9A /* SFFinancialCalculatorTests.m */,
+				260AA0361840497600024E9A /* SFPresentValueCalculatorTests.m */,
 				260AA01D184036A300024E9A /* Supporting Files */,
 			);
 			path = SFFinancialCalculatorTests;
@@ -155,6 +170,17 @@
 				260AA01F184036A300024E9A /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		260AA02C184037CC00024E9A /* Logic */ = {
+			isa = PBXGroup;
+			children = (
+				260AA02D184037F800024E9A /* SFCalculator.h */,
+				260AA02E184037F800024E9A /* SFCalculator.m */,
+				260AA03018403D5C00024E9A /* SFPresentValueCalculator.h */,
+				260AA03118403D5C00024E9A /* SFPresentValueCalculator.m */,
+			);
+			name = Logic;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -259,6 +285,9 @@
 				260AA00B184036A300024E9A /* SFFirstViewController.m in Sources */,
 				260AA005184036A300024E9A /* SFAppDelegate.m in Sources */,
 				260AA00E184036A300024E9A /* SFSecondViewController.m in Sources */,
+				260AA03A18404EFC00024E9A /* SFPresentValueViewController.m in Sources */,
+				260AA03218403D5C00024E9A /* SFPresentValueCalculator.m in Sources */,
+				260AA02F184037F800024E9A /* SFCalculator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -266,6 +295,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				260AA0371840497600024E9A /* SFPresentValueCalculatorTests.m in Sources */,
 				260AA023184036A300024E9A /* SFFinancialCalculatorTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
