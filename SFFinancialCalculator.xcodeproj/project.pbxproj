@@ -26,6 +26,7 @@
 		260AA03218403D5C00024E9A /* SFPresentValueCalculator.m in Sources */ = {isa = PBXBuildFile; fileRef = 260AA03118403D5C00024E9A /* SFPresentValueCalculator.m */; };
 		260AA0371840497600024E9A /* SFPresentValueCalculatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 260AA0361840497600024E9A /* SFPresentValueCalculatorTests.m */; };
 		260AA03A18404EFC00024E9A /* SFPresentValueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 260AA03918404EFC00024E9A /* SFPresentValueViewController.m */; };
+		2658E6C0184533D700FAE0A0 /* SFAnnuityCalculatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2658E6BF184533D700FAE0A0 /* SFAnnuityCalculatorTests.m */; };
 		268975421841B08A009DD2F3 /* SFClosedFormBondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 268975411841B08A009DD2F3 /* SFClosedFormBondViewController.m */; };
 		26C961121843B58B00DDD2D1 /* SFAnnuityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26C961111843B58B00DDD2D1 /* SFAnnuityViewController.m */; };
 		26C961151843BAC200DDD2D1 /* SFClosedFormBondCalculator.m in Sources */ = {isa = PBXBuildFile; fileRef = 26C961141843BAC200DDD2D1 /* SFClosedFormBondCalculator.m */; };
@@ -71,6 +72,7 @@
 		260AA0361840497600024E9A /* SFPresentValueCalculatorTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFPresentValueCalculatorTests.m; sourceTree = "<group>"; };
 		260AA03818404EFC00024E9A /* SFPresentValueViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFPresentValueViewController.h; sourceTree = "<group>"; };
 		260AA03918404EFC00024E9A /* SFPresentValueViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFPresentValueViewController.m; sourceTree = "<group>"; };
+		2658E6BF184533D700FAE0A0 /* SFAnnuityCalculatorTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFAnnuityCalculatorTests.m; sourceTree = "<group>"; };
 		268975401841B08A009DD2F3 /* SFClosedFormBondViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFClosedFormBondViewController.h; sourceTree = "<group>"; };
 		268975411841B08A009DD2F3 /* SFClosedFormBondViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFClosedFormBondViewController.m; sourceTree = "<group>"; };
 		26C961101843B58B00DDD2D1 /* SFAnnuityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFAnnuityViewController.h; sourceTree = "<group>"; };
@@ -174,6 +176,7 @@
 			children = (
 				260AA022184036A300024E9A /* SFFinancialCalculatorTests.m */,
 				260AA0361840497600024E9A /* SFPresentValueCalculatorTests.m */,
+				2658E6BF184533D700FAE0A0 /* SFAnnuityCalculatorTests.m */,
 				260AA01D184036A300024E9A /* Supporting Files */,
 			);
 			path = SFFinancialCalculatorTests;
@@ -251,6 +254,9 @@
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = "University of Nebraska - Lincoln";
 				TargetAttributes = {
+					260A9FF0184036A300024E9A = {
+						DevelopmentTeam = Y8LM7XP9Z3;
+					};
 					260AA014184036A300024E9A = {
 						TestTargetID = 260A9FF0184036A300024E9A;
 					};
@@ -320,6 +326,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				260AA0371840497600024E9A /* SFPresentValueCalculatorTests.m in Sources */,
+				2658E6C0184533D700FAE0A0 /* SFAnnuityCalculatorTests.m in Sources */,
 				260AA023184036A300024E9A /* SFFinancialCalculatorTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -439,6 +446,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Ian Cottingham (FS7ZKN4U58)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SFFinancialCalculator/SFFinancialCalculator-Prefix.pch";
 				INFOPLIST_FILE = "SFFinancialCalculator/SFFinancialCalculator-Info.plist";
@@ -452,6 +461,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Ian Cottingham (FS7ZKN4U58)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SFFinancialCalculator/SFFinancialCalculator-Prefix.pch";
 				INFOPLIST_FILE = "SFFinancialCalculator/SFFinancialCalculator-Info.plist";
