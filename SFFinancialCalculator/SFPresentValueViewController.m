@@ -42,7 +42,6 @@
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
                                    initWithTarget:self
                                    action:@selector(dismissKeyboard)];
-    
     [self.view addGestureRecognizer:tap];
 }
 
@@ -70,50 +69,105 @@
     NSString * mText = [_compoundingFrequency text];
     NSString * nText = [_interestPeriods text];
     NSString *yText = [_annualInterestRate text];
+
+    // Deal with mnMT
+    int count = 0;
+    if ([MText length] != 0) count++;
+    if ([mText length] != 0) count++;
+    if ([nText length] != 0) count++;
     
-    PV = [pVText doubleValue];
-    FV = [fVText doubleValue];
-    y = [yText doubleValue];
-    
+    if (count < 2) {
+        // Problem
+        // Please supply at least 2 of mnMT
+        [self alert:@"Please supply at least two of mnMT!"];
+        return;
+    }
     
     M = [MText intValue];
-    m = [mText doubleValue];
     n = [nText intValue];
-    // Calculate missing value...
+    m = [mText doubleValue];
+    
+    // Calculate missing values
     M = ([MText length] == 0) ? n*m : M;
     m = ([mText length] == 0) ? (double)M/(double)n : m;
     n = ([nText length] == 0) ? M/m : n;
     
+    //
+    
+    PV = [pVText doubleValue];
+    y = [yText doubleValue];
+    // M must equal array
+    NSArray *flows = [fVText componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    if ([flows count] != 1 && [flows count] != M) {
+        [self alert:@"Problem with flow input."]; return;
+    }
+    FV = [fVText doubleValue];
+    
+    
+    // Check repetition
+    BOOL repeat = _repeatCF.on;
+    
     SFPresentValueCalculator *calc = [[SFPresentValueCalculator alloc]init];
-    if ([pVText length] == 0 )
+    if ([pVText length] == 0 && [fVText length] > 0 && [yText length] > 0)
     {
         // Compute PV
-        PV = [calc presentValueOf:[NSNumber numberWithDouble:FV] forYield:y withPeriodsPerYear:m andTotalCompounds:M];
-    }
-    else if ([fVText length] == 0)
+        if (repeat)
+        {
+            PV = [calc presentValueOfRepeatedCashFlows:[NSNumber numberWithDouble:FV] forYield:y withPeriodsPerYear:m andTotalCompounds:M];
+        }
+        else
+        {
+            if ([flows count] == 1) {
+                PV = [calc presentValueOf:[NSNumber numberWithDouble:FV] forYield:y withPeriodsPerYear:m andTotalCompounds:M];
+            }
+            else if ([flows count] > 0){
+                PV = [calc presentValueOfCashFlows:flows forYield:y withPeriodsPerYear:m andTotalPeriods:M];
+            } else {[self alert:@"Problem with flows."]; return;};
+        }
+        _presentValue.text = [NSString stringWithFormat:@"%f",PV];
+            }
+    else if ([fVText length] == 0 && [pVText length] > 0 && [yText length] > 0)
     {
         // Compute FV
         FV = [calc futureValueOf:[NSNumber numberWithDouble:PV] forYield:y withPeriodsPerYear:m andTotalCompounds:M];
+        _futureValue.text = [NSString stringWithFormat:@"%f",FV];
     }
-    else if ([yText length] == 0)
+    else if ([yText length] == 0 && [fVText length] > 0 && [pVText length] > 0)
     {
         // Compute y
-        y = [calc annualYieldOf:[NSNumber numberWithDouble:FV] withPV:PV withPeriodsPerYear:m andTotalCompounds:M];
+        
+        if (repeat)
+        {
+            y = [calc annualYieldOfRepeatedCashFlow:[NSNumber numberWithDouble:FV] withPV:PV withPeriodsPerYear:m andTotalCompounds:M];
+        }
+        else
+        {
+            if ([flows count] == 1) {
+                // Normal
+                y = [calc annualYieldOf:[NSNumber numberWithDouble:FV] withPV:PV withPeriodsPerYear:m andTotalCompounds:M];
+            }
+            else if ([flows count] > 0){
+                y = [calc annualYieldOfCashFlows:flows withPV:PV withPeriodsPerYear:m andTotalPeriods:M];
+            } else {[self alert:@"Problem with flow input."]; return;};
+        }
+        _annualInterestRate.text = [NSString stringWithFormat:@"%f",y];
     }
-    
-    //self.tempOutput
-    _tempOutput.text = [NSString stringWithFormat:@"TEST%f",PV];
-    [self updateFields];
+    else
+    {
+        [self alert:@"Please leave one and only one of P, C, or y blank."];
+    }
+
+
 }
 
-- (void)updateFields
+- (void)alert:(NSString *)message
 {
-    _presentValue.text = [NSString stringWithFormat:@"%f",PV];
-    _futureValue.text = [NSString stringWithFormat:@"%f",FV];
-    _numberOfTimesCompounded.text = [NSString stringWithFormat:@"%d",M];
-    _compoundingFrequency.text = [NSString stringWithFormat:@"%f",m];
-    _annualInterestRate.text = [NSString stringWithFormat:@"%f",y];
-    _interestPeriods.text = [NSString stringWithFormat:@"%d",n];
+    UIAlertView *theAlert = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                       message:message
+                                                      delegate:self
+                                             cancelButtonTitle:@"OK"
+                                             otherButtonTitles:nil];
+    [theAlert show];
 }
 
 # pragma mark - UITextFieldDelegate

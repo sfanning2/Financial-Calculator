@@ -17,6 +17,9 @@
 @property (weak) IBOutlet UITextField *compoundingFrequency;//m or f
 @property (weak) IBOutlet UIButton *submit;
 @property (weak) IBOutlet UILabel *tempOutput;
+
+@property (weak) IBOutlet UISwitch *repeatCF;
+
+
 - (IBAction)submit:(id)sender;
-- (IBAction)backgroundClick:(id)sender;
 @end

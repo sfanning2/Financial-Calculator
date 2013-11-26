@@ -9,8 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface SFCalculator : NSObject
-//- (NSNumber *)annuityWithNominalAnnualYield:(NSNumber *)y andCouponRate:(NSNumber *)C;
-// (NSNumber *)presentValueOfCashFlows:(NSArray *)cashFlows forYield:(NSNumber *)nominalAnnualYield with;
-- (NSNumber *)presentValueAnnualYieldforCashFlows:(NSArray *)cashFlows forPresentValue:(NSNumber *)presentValue;
+
++ (double)newtonRaphson:(double (^)(double))function derivative:(double (^)(double))derivative initialGuess:(double)x;
 
 @end

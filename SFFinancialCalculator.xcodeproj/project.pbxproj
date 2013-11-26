@@ -26,6 +26,10 @@
 		260AA03218403D5C00024E9A /* SFPresentValueCalculator.m in Sources */ = {isa = PBXBuildFile; fileRef = 260AA03118403D5C00024E9A /* SFPresentValueCalculator.m */; };
 		260AA0371840497600024E9A /* SFPresentValueCalculatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 260AA0361840497600024E9A /* SFPresentValueCalculatorTests.m */; };
 		260AA03A18404EFC00024E9A /* SFPresentValueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 260AA03918404EFC00024E9A /* SFPresentValueViewController.m */; };
+		268975421841B08A009DD2F3 /* SFClosedFormBondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 268975411841B08A009DD2F3 /* SFClosedFormBondViewController.m */; };
+		26C961121843B58B00DDD2D1 /* SFAnnuityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26C961111843B58B00DDD2D1 /* SFAnnuityViewController.m */; };
+		26C961151843BAC200DDD2D1 /* SFClosedFormBondCalculator.m in Sources */ = {isa = PBXBuildFile; fileRef = 26C961141843BAC200DDD2D1 /* SFClosedFormBondCalculator.m */; };
+		26C961181843C40F00DDD2D1 /* SFAnnuityCalculator.m in Sources */ = {isa = PBXBuildFile; fileRef = 26C961171843C40F00DDD2D1 /* SFAnnuityCalculator.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +71,14 @@
 		260AA0361840497600024E9A /* SFPresentValueCalculatorTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFPresentValueCalculatorTests.m; sourceTree = "<group>"; };
 		260AA03818404EFC00024E9A /* SFPresentValueViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFPresentValueViewController.h; sourceTree = "<group>"; };
 		260AA03918404EFC00024E9A /* SFPresentValueViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFPresentValueViewController.m; sourceTree = "<group>"; };
+		268975401841B08A009DD2F3 /* SFClosedFormBondViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFClosedFormBondViewController.h; sourceTree = "<group>"; };
+		268975411841B08A009DD2F3 /* SFClosedFormBondViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFClosedFormBondViewController.m; sourceTree = "<group>"; };
+		26C961101843B58B00DDD2D1 /* SFAnnuityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFAnnuityViewController.h; sourceTree = "<group>"; };
+		26C961111843B58B00DDD2D1 /* SFAnnuityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFAnnuityViewController.m; sourceTree = "<group>"; };
+		26C961131843BAC200DDD2D1 /* SFClosedFormBondCalculator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFClosedFormBondCalculator.h; sourceTree = "<group>"; };
+		26C961141843BAC200DDD2D1 /* SFClosedFormBondCalculator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFClosedFormBondCalculator.m; sourceTree = "<group>"; };
+		26C961161843C40F00DDD2D1 /* SFAnnuityCalculator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFAnnuityCalculator.h; sourceTree = "<group>"; };
+		26C961171843C40F00DDD2D1 /* SFAnnuityCalculator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFAnnuityCalculator.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,6 +147,10 @@
 				260AA00D184036A300024E9A /* SFSecondViewController.m */,
 				260AA03818404EFC00024E9A /* SFPresentValueViewController.h */,
 				260AA03918404EFC00024E9A /* SFPresentValueViewController.m */,
+				268975401841B08A009DD2F3 /* SFClosedFormBondViewController.h */,
+				268975411841B08A009DD2F3 /* SFClosedFormBondViewController.m */,
+				26C961101843B58B00DDD2D1 /* SFAnnuityViewController.h */,
+				26C961111843B58B00DDD2D1 /* SFAnnuityViewController.m */,
 				260AA00F184036A300024E9A /* Images.xcassets */,
 				260AA02C184037CC00024E9A /* Logic */,
 				260A9FFB184036A300024E9A /* Supporting Files */,
@@ -179,6 +195,10 @@
 				260AA02E184037F800024E9A /* SFCalculator.m */,
 				260AA03018403D5C00024E9A /* SFPresentValueCalculator.h */,
 				260AA03118403D5C00024E9A /* SFPresentValueCalculator.m */,
+				26C961131843BAC200DDD2D1 /* SFClosedFormBondCalculator.h */,
+				26C961141843BAC200DDD2D1 /* SFClosedFormBondCalculator.m */,
+				26C961161843C40F00DDD2D1 /* SFAnnuityCalculator.h */,
+				26C961171843C40F00DDD2D1 /* SFAnnuityCalculator.m */,
 			);
 			name = Logic;
 			sourceTree = "<group>";
@@ -281,10 +301,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				268975421841B08A009DD2F3 /* SFClosedFormBondViewController.m in Sources */,
 				260AA001184036A300024E9A /* main.m in Sources */,
 				260AA00B184036A300024E9A /* SFFirstViewController.m in Sources */,
+				26C961151843BAC200DDD2D1 /* SFClosedFormBondCalculator.m in Sources */,
+				26C961181843C40F00DDD2D1 /* SFAnnuityCalculator.m in Sources */,
 				260AA005184036A300024E9A /* SFAppDelegate.m in Sources */,
 				260AA00E184036A300024E9A /* SFSecondViewController.m in Sources */,
+				26C961121843B58B00DDD2D1 /* SFAnnuityViewController.m in Sources */,
 				260AA03A18404EFC00024E9A /* SFPresentValueViewController.m in Sources */,
 				260AA03218403D5C00024E9A /* SFPresentValueCalculator.m in Sources */,
 				260AA02F184037F800024E9A /* SFCalculator.m in Sources */,
@@ -497,6 +521,7 @@
 				260AA028184036A300024E9A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		260AA029184036A300024E9A /* Build configuration list for PBXNativeTarget "SFFinancialCalculatorTests" */ = {
 			isa = XCConfigurationList;
@@ -505,6 +530,7 @@
 				260AA02B184036A300024E9A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
