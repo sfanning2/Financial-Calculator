@@ -24,11 +24,14 @@
     NSString *_interestPeriodsText;
     NSString *_compoundingFrequencyText;
     NSString *_timeToTermText;
+    
+    //NSArray
 }
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
+        //flows = [[NSMutableArray alloc]init];
     }
     return self;
 }

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SFPresentValueViewController : UIViewController <UITextFieldDelegate>
+@interface SFPresentValueViewController : UIViewController <UITextFieldDelegate, UIAlertViewDelegate>
 @property (weak) IBOutlet UITextField *presentValue;
 @property (weak) IBOutlet UITextField *futureValue;
 @property (weak) IBOutlet UITextField *annualInterestRate;//i or y
@@ -22,4 +22,6 @@
 
 
 - (IBAction)submit:(id)sender;
+- (IBAction)clearFlows:(id)sender;
+- (IBAction)addFlowAlert:(id)sender;
 @end

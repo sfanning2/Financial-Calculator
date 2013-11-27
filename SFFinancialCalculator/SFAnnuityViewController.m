@@ -23,6 +23,8 @@
     NSString *_interestPeriodsText;
     NSString *_compoundingFrequencyText;
     NSString *_timeToTermText;
+    
+    NSMutableArray *flows;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -30,6 +32,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        flows = [[NSMutableArray alloc]init];
     }
     return self;
 }
@@ -48,6 +51,11 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (IBAction)clearFlows:(id)sender
+{
+    
 }
 
 - (IBAction)submitForm:(id)sender

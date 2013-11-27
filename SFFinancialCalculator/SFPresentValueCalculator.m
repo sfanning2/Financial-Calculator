@@ -16,9 +16,9 @@
 - (double)presentValueOfCashFlows:(NSArray *)cashFlows forYield:(double)y withPeriodsPerYear:(double)m andTotalPeriods:(int)M
 {
     double presentValue = 0.0;
-    for (int i = 1; i <= [cashFlows count]; i++) {
+    for (int i = 0; i <= [cashFlows count]; i++) {
         // Sum up the PV of each cash flow
-        NSNumber *currentFlow = [cashFlows objectAtIndex:(i-1)];
+        NSNumber *currentFlow = [cashFlows objectAtIndex:(i)];
         presentValue += [self presentValueOf:currentFlow forYield:y withPeriodsPerYear:m andTotalCompounds:i];
     }
     return presentValue;
@@ -62,9 +62,9 @@
     double (^derivative)(double) = ^ double (double y){
         
         double expression = 0.0;
-        for (int i = 1; i <= [cashFlows count]; i++) {
+        for (int i = 0; i <= [cashFlows count]; i++) {
             // Sum up the PV of each cash flow
-            NSNumber *currentFlow = [cashFlows objectAtIndex:(i-1)];
+            NSNumber *currentFlow = [cashFlows objectAtIndex:(i)];
             expression += (-1.0 *(double)i ) *[self presentValueOf:currentFlow forYield:y withPeriodsPerYear:m andTotalCompounds:(i)];
         }
         return expression / (m + y);
@@ -85,7 +85,7 @@
 - (double)annualYieldOfRepeatedCashFlow:(NSNumber *)amount withPV:(double)P withPeriodsPerYear:(double)m andTotalCompounds:(int)M
 {
     NSMutableArray *array = [[NSMutableArray alloc] init];
-    for (int i = 0; i < M; i ++) {
+    for (int i = 0; i <= M; i ++) {
         [array addObject:amount];
     }
     return [self annualYieldOfCashFlows:array withPV:P withPeriodsPerYear:m andTotalPeriods:M];

@@ -8,6 +8,7 @@
 
 #import "SFPresentValueViewController.h"
 #import "SFPresentValueCalculator.h"
+#import "SFCashFlowViewController.h"
 
 @interface SFPresentValueViewController ()
 
@@ -21,7 +22,7 @@
     int M;//M = n*f
     double m;//m or f
     int n;
-    
+    NSMutableArray *flows;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -29,6 +30,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        flows = [[NSMutableArray alloc]init];
     }
     return self;
 }
@@ -59,7 +61,11 @@
     [_annualInterestRate resignFirstResponder];
     [_interestPeriods resignFirstResponder];
 }
-
+- (IBAction)clearFlows:(id)sender
+{
+    //
+    flows = [[NSMutableArray alloc]init];
+}
 - (IBAction)submit:(id)sender
 {
     //Read input
@@ -97,7 +103,7 @@
     PV = [pVText doubleValue];
     y = [yText doubleValue];
     // M must equal array
-    NSArray *flows = [fVText componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    //NSArray *flows = [fVText componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     if ([flows count] != 1 && [flows count] != M) {
         [self alert:@"Problem with flow input."]; return;
     }
@@ -168,6 +174,47 @@
                                              cancelButtonTitle:@"OK"
                                              otherButtonTitles:nil];
     [theAlert show];
+}
+
+- (IBAction)addFlowAlert:(id)sender;
+{
+    SFCashFlowViewController *flowView = [SFCashFlowViewController init];
+    void (^completion)(void);
+    
+    completion = ^ {
+        //
+        NSLog(@"completion block");
+    };
+    [self presentViewController:flowView animated:YES completion:completion];
+    
+}
+
+- (IBAction)showMessage:(id)sender {
+    UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Add Cash Flow"
+                                                      message:nil
+                                                     delegate:self
+                                            cancelButtonTitle:@"Cancel"
+                                            otherButtonTitles:@"Add", nil];
+    [message setAlertViewStyle:UIAlertViewStylePlainTextInput];
+    [message show];
+}
+
+#pragma mark - UIAlertViewDelegate
+//- (BOOL)alertViewShouldEnableFirstOtherButton:(UIAlertView *)alertView
+//{
+//    NSString *inputText = [[alertView textFieldAtIndex:0] text];
+//    if( [inputText length] >= 10 )
+//    {
+//        return YES;
+//    }
+//    else
+//    {
+//        return NO;
+//    }
+//}
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    
 }
 
 # pragma mark - UITextFieldDelegate

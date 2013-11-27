@@ -23,4 +23,5 @@
 // button
 @property (weak) IBOutlet UIButton *button;
 - (IBAction)submitForm:(id)sender;
+//- (IBAction)clearFlows:(id)sender;
 @end
