@@ -76,7 +76,7 @@
     }
     
     int M = [_numberOfTimesCompoundedText intValue];
-    int n = [_interestPeriodsText intValue];
+    double n = [_interestPeriodsText doubleValue];
     double m = [_compoundingFrequencyText doubleValue];
     //double T = [_timeToTermText doubleValue];//????
     // compute from each other

@@ -77,17 +77,17 @@
     }
     
     int M = [_numberOfTimesCompoundedText intValue];
-    int n = [_interestPeriodsText intValue];
+    double n = [_interestPeriodsText doubleValue];
     double m = [_compoundingFrequencyText doubleValue];
     //double T = [_timeToTermText doubleValue];//????
     
     // compute from each other
     M = ([_numberOfTimesCompoundedText length] == 0) ? n*m : M;
     m = ([_compoundingFrequencyText length] == 0) ? (double)M/(double)n : m;
-    n = ([_interestPeriodsText length] == 0) ? M/m : n;
+    n = ([_interestPeriodsText length] == 0) ? (double)M/m : n;
     
     // logic
-    SFClosedFormBondCalculator *calc = [[SFClosedFormBondCalculator alloc] initWithFaceValue:FV periods:M periodsPerYear:m];
+    SFClosedFormBondCalculator *calc = [[SFClosedFormBondCalculator alloc] initWithFaceValue:FV periods:n periodsPerYear:m];
     // Deal with PCy
     if ([_bondPriceText length] == 0 && [_couponPaymentText length] > 0 && [_annualInterestRateText length] > 0) {
         // Calc P

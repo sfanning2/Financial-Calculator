@@ -17,11 +17,10 @@
 @implementation SFPresentValueViewController
 {
     double PV;
-    double FV;
     double y;//i or y
     int M;//M = n*f
     double m;//m or f
-    int n;
+    double n;
     NSMutableArray *flows;
 }
 
@@ -30,7 +29,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        flows = [[NSMutableArray alloc]init];
+        flows = [[NSMutableArray alloc]initWithCapacity:1];
     }
     return self;
 }
@@ -55,7 +54,6 @@
 
 -(void)dismissKeyboard {
     [_presentValue resignFirstResponder];
-    [_futureValue resignFirstResponder];
     [_numberOfTimesCompounded resignFirstResponder];
     [_compoundingFrequency resignFirstResponder];
     [_annualInterestRate resignFirstResponder];
@@ -65,27 +63,24 @@
 {
     //
     flows = [[NSMutableArray alloc]init];
+    _cashFlowLabel.text = @"";
+    [self displayCashFlowLabel];
 }
 - (IBAction)submit:(id)sender
 {
     //Read input
     NSString * pVText = [_presentValue text];
-    NSString * fVText = [_futureValue text];
     NSString * MText = [_numberOfTimesCompounded text];
     NSString * mText = [_compoundingFrequency text];
     NSString * nText = [_interestPeriods text];
     NSString *yText = [_annualInterestRate text];
 
-    // Deal with mnMT
-    int count = 0;
-    if ([MText length] != 0) count++;
-    if ([mText length] != 0) count++;
-    if ([nText length] != 0) count++;
+    // Deal with mnM
     
-    if (count < 2) {
+    if ([mText length] == 0) {
         // Problem
         // Please supply at least 2 of mnMT
-        [self alert:@"Please supply at least two of mnMT!"];
+        [self alert:@"Please supply m!"];
         return;
     }
     
@@ -98,65 +93,37 @@
     m = ([mText length] == 0) ? (double)M/(double)n : m;
     n = ([nText length] == 0) ? M/m : n;
     
-    //
+    // M is one less than count
     
     PV = [pVText doubleValue];
     y = [yText doubleValue];
     // M must equal array
-    //NSArray *flows = [fVText componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-    if ([flows count] != 1 && [flows count] != M) {
-        [self alert:@"Problem with flow input."]; return;
+    // Add missing flows
+    for (NSUInteger i = [flows count]; i < M; i++) {
+        [flows addObject:[NSNumber numberWithDouble:0.0]];
     }
-    FV = [fVText doubleValue];
     
-    
-    // Check repetition
-    BOOL repeat = _repeatCF.on;
     
     SFPresentValueCalculator *calc = [[SFPresentValueCalculator alloc]init];
-    if ([pVText length] == 0 && [fVText length] > 0 && [yText length] > 0)
+    if ([pVText length] == 0 && [yText length] > 0)
     {
         // Compute PV
-        if (repeat)
-        {
-            PV = [calc presentValueOfRepeatedCashFlows:[NSNumber numberWithDouble:FV] forYield:y withPeriodsPerYear:m andTotalCompounds:M];
-        }
-        else
-        {
-            if ([flows count] == 1) {
-                PV = [calc presentValueOf:[NSNumber numberWithDouble:FV] forYield:y withPeriodsPerYear:m andTotalCompounds:M];
-            }
-            else if ([flows count] > 0){
-                PV = [calc presentValueOfCashFlows:flows forYield:y withPeriodsPerYear:m andTotalPeriods:M];
-            } else {[self alert:@"Problem with flows."]; return;};
-        }
-        _presentValue.text = [NSString stringWithFormat:@"%f",PV];
-            }
-    else if ([fVText length] == 0 && [pVText length] > 0 && [yText length] > 0)
+        PV = [calc presentValueOfCashFlows:flows forYield:y withPeriodsPerYear:m];
+        _presentValue.text = [NSString stringWithFormat:@"%.4f",PV];
+    }
+    else if ([pVText length] > 0 && [yText length] > 0)
     {
         // Compute FV
-        FV = [calc futureValueOf:[NSNumber numberWithDouble:PV] forYield:y withPeriodsPerYear:m andTotalCompounds:M];
-        _futureValue.text = [NSString stringWithFormat:@"%f",FV];
+        // TODO: display somewhere
+        double FV = [calc futureValueOf:[NSNumber numberWithDouble:PV] forYield:y withPeriodsPerYear:m andTotalCompounds:M];
+        NSString *fVString = [NSString stringWithFormat:@"Future value = %.4f", FV];
+        [self alert:fVString title:@"Future Value"];
     }
-    else if ([yText length] == 0 && [fVText length] > 0 && [pVText length] > 0)
+    else if ([yText length] == 0 && [pVText length] > 0)
     {
         // Compute y
-        
-        if (repeat)
-        {
-            y = [calc annualYieldOfRepeatedCashFlow:[NSNumber numberWithDouble:FV] withPV:PV withPeriodsPerYear:m andTotalCompounds:M];
-        }
-        else
-        {
-            if ([flows count] == 1) {
-                // Normal
-                y = [calc annualYieldOf:[NSNumber numberWithDouble:FV] withPV:PV withPeriodsPerYear:m andTotalCompounds:M];
-            }
-            else if ([flows count] > 0){
-                y = [calc annualYieldOfCashFlows:flows withPV:PV withPeriodsPerYear:m andTotalPeriods:M];
-            } else {[self alert:@"Problem with flow input."]; return;};
-        }
-        _annualInterestRate.text = [NSString stringWithFormat:@"%f",y];
+        y = [calc annualYieldOfCashFlows:flows withPV:PV withPeriodsPerYear:m];
+        _annualInterestRate.text = [NSString stringWithFormat:@"%.4f",y];
     }
     else
     {
@@ -166,9 +133,14 @@
 
 }
 
-- (void)alert:(NSString *)message
+- (void)alert:(NSString *)errorMessage
 {
-    UIAlertView *theAlert = [[UIAlertView alloc] initWithTitle:@"Error"
+    [self alert:errorMessage title:@"Error"];
+}
+
+- (void)alert:(NSString *)message title:(NSString *)title
+{
+    UIAlertView *theAlert = [[UIAlertView alloc] initWithTitle:title
                                                        message:message
                                                       delegate:self
                                              cancelButtonTitle:@"OK"
@@ -176,45 +148,67 @@
     [theAlert show];
 }
 
-- (IBAction)addFlowAlert:(id)sender;
+- (IBAction)addFlow:(id)sender;
 {
-    SFCashFlowViewController *flowView = [SFCashFlowViewController init];
-    void (^completion)(void);
-    
-    completion = ^ {
-        //
-        NSLog(@"completion block");
-    };
-    [self presentViewController:flowView animated:YES completion:completion];
+    [self performSegueWithIdentifier:@"AddFlow" sender:self];
     
 }
 
-- (IBAction)showMessage:(id)sender {
-    UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Add Cash Flow"
-                                                      message:nil
-                                                     delegate:self
-                                            cancelButtonTitle:@"Cancel"
-                                            otherButtonTitles:@"Add", nil];
-    [message setAlertViewStyle:UIAlertViewStylePlainTextInput];
-    [message show];
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"AddFlow"])
+    {
+        // Do something
+        SFCashFlowViewController *dest = segue.destinationViewController;
+        dest.cashFlowDelegate = self;
+        
+    }
 }
 
-#pragma mark - UIAlertViewDelegate
-//- (BOOL)alertViewShouldEnableFirstOtherButton:(UIAlertView *)alertView
-//{
-//    NSString *inputText = [[alertView textFieldAtIndex:0] text];
-//    if( [inputText length] >= 10 )
-//    {
-//        return YES;
-//    }
-//    else
-//    {
-//        return NO;
-//    }
-//}
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+- (void) addCashFlow:(double)value time:(int)time repetitions:(int)repetitions
 {
+    if (flows == nil) {
+        flows = [[NSMutableArray alloc]init];
+    }
+    // Add it
+    if (repetitions == 0) {repetitions = 1;}
+    for (NSUInteger i = [flows count]; i < time + repetitions; i++) {
+        [flows addObject:[NSNumber numberWithDouble:0.0]];
+    }
+    for (int i = time; i < time + repetitions; i++) {
+        NSNumber *o =[flows objectAtIndex:i];
+        [flows replaceObjectAtIndex:i withObject:[NSNumber numberWithDouble:([o doubleValue] + value)]];
+    }
     
+    _cashFlowLabel.text = [self cashFlowText];
+    [self displayCashFlowLabel];
+    [self.presentedViewController dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void) cancel
+{
+    [self.presentedViewController dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)displayCashFlowLabel
+{
+    NSDictionary *stringAttributes = [NSDictionary dictionaryWithObject:_cashFlowLabel.font forKey: NSFontAttributeName];
+    
+    CGSize expectedLabelSize = [_cashFlowLabel.text boundingRectWithSize:_cashFlowLabel.frame.size
+                                                                 options:NSStringDrawingTruncatesLastVisibleLine|NSStringDrawingUsesLineFragmentOrigin
+                                                              attributes:stringAttributes context:nil].size;
+    _cashFlowLabel.frame = CGRectMake(
+                                      _cashFlowLabel.frame.origin.x, _cashFlowLabel.frame.origin.y,
+                                      _cashFlowLabel.frame.size.width, expectedLabelSize.height);
+}
+
+- (NSString *)cashFlowText
+{
+    NSMutableString *string = [[NSMutableString alloc] init];
+    for (int j = 0; j < [flows count]; j++) {
+        [string appendFormat:@"%d: %.4f\n",j,[[flows objectAtIndex:j] doubleValue]];
+    }
+    return string;
 }
 
 # pragma mark - UITextFieldDelegate
@@ -223,17 +217,6 @@
 {
     return YES;
 }
-/*
- – textFieldShouldBeginEditing:
- – textFieldDidBeginEditing:
- – textFieldShouldEndEditing:
- – textFieldDidEndEditing:
-*/
-/*
- – textField:shouldChangeCharactersInRange:replacementString:
- – textFieldShouldClear:
- – textFieldShouldReturn:
-*/
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {

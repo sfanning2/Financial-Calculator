@@ -19,6 +19,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+
     }
     return self;
 }
@@ -33,6 +34,22 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (IBAction)submit:(id)sender
+{
+    if (_cashFlowDelegate != nil) {
+        [_cashFlowDelegate addCashFlow:[[_valueTextField text] doubleValue]
+                                  time:[[_timeTextField text] intValue]
+                           repetitions:[[_repeatTextField text] intValue]];
+    }
+}
+
+- (IBAction)cancel:(id)sender
+{
+    if (_cashFlowDelegate != nil) {
+        [_cashFlowDelegate cancel];
+    }
 }
 
 @end

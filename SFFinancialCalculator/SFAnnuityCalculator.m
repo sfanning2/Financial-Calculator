@@ -10,7 +10,7 @@
 #import "SFCalculator.h"
 
 @implementation SFAnnuityCalculator
-- (id)initWithPeriods:(int)n periodsPerYear:(double)m
+- (id)initWithPeriods:(double)n periodsPerYear:(double)m
 {
     self = [self init];
     if (self)

@@ -19,8 +19,8 @@
 
 //mTNM
 //F
-- (id)initWithPeriods:(int)n periodsPerYear:(double)m;
+- (id)initWithPeriods:(double)n periodsPerYear:(double)m;
 @property (assign) double m;//m:periods per year
-@property (assign) int n;//n:periods; M = n*m
+@property (assign) double n;//n:periods; M = n*m
 
 @end

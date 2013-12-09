@@ -20,8 +20,8 @@
 
 //mTNM
 //F
-- (id)initWithFaceValue:(double)F periods:(int)n periodsPerYear:(double)m;
+- (id)initWithFaceValue:(double)F periods:(double)n periodsPerYear:(double)m;
 @property (assign) double m;//m:periods per year
-@property (assign) int n;//n:periods; M = n*m
+@property (assign) double n;//n:periods; M = n*m
 @property (assign) double F;//facevalue
 @end

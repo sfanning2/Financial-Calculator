@@ -8,10 +8,11 @@
 
 #import "SFClosedFormBondCalculator.h"
 #import "SFCalculator.h"
+#import "SFPresentValueCalculator.h"
 @implementation SFClosedFormBondCalculator
 
 
-- (id)initWithFaceValue:(double)F periods:(int)n periodsPerYear:(double)m
+- (id)initWithFaceValue:(double)F periods:(double)n periodsPerYear:(double)m
 {
     self = [self init];
     if (self)
@@ -26,8 +27,8 @@
 //P: solve for
 - (double)bondPriceForCouponPayment:(double)C andAnnualYield:(double)y
 {
-    double term = pow((1 + y/_m),((double)_n * _m));
-    return C * (1/(y/_m) - 1/(y/_m * term)) + _F/term;
+    double term = pow((1 + (y/_m)),((double)_n * _m));
+    return C * (1/(y/_m) - 1/((y/_m) * term)) + _F/term;
 }
 //C: solve for
 - (double)couponPaymentForBondPrice:(double)P andAnnualYield:(double)y
@@ -51,7 +52,7 @@
         double termD = pow((1 + x), (M - 1.0)) * M / _m;
         return P * term / _m + P * termD - C * termD - _F/_m;
     };
-    return [SFCalculator newtonRaphson:function derivative:derivative initialGuess:0.5];
+    return [SFCalculator newtonRaphson:function derivative:derivative initialGuess:0.001];
 }
 
 
