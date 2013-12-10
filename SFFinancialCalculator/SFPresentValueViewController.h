@@ -24,4 +24,5 @@
 - (IBAction)submit:(id)sender;
 - (IBAction)clearFlows:(id)sender;
 - (IBAction)addFlow:(id)sender;
+- (IBAction)viewPlot:(id)sender;
 @end

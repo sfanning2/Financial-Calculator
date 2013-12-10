@@ -4,6 +4,25 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
     </dependencies>
     <scenes>
+        <!--Scatter Plot View Controller-->
+        <scene sceneID="yoY-KK-c8l">
+            <objects>
+                <viewController id="2Fk-r1-igO" customClass="SFScatterPlotViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="pJi-zd-t0f"/>
+                        <viewControllerLayoutGuide type="bottom" id="fAo-ge-hrL"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="5x4-WA-0ck">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="hhU-Rz-SFB"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uTx-hh-rsd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1233" y="-590"/>
+        </scene>
         <!--Present Value View Controller - First-->
         <scene sceneID="W3I-pn-N6e">
             <objects>
@@ -85,9 +104,9 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9IG-ho-WFe">
-                                        <rect key="frame" x="136" y="350" width="49" height="30"/>
+                                        <rect key="frame" x="136" y="350" width="65" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Submit">
+                                        <state key="normal" title="Calculate">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -193,7 +212,7 @@
                                         </connections>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WAM-cH-fGm">
-                                        <rect key="frame" x="204" y="128" width="65" height="30"/>
+                                        <rect key="frame" x="235" y="128" width="65" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Add Flow">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -239,6 +258,21 @@
                                             <action selector="clearFlows:" destination="CZ4-MO-1fc" eventType="touchUpInside" id="bd5-sM-Lqw"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E1V-SJ-FP7">
+                                        <rect key="frame" x="241" y="413" width="60" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="60" id="Lcd-vR-w0T"/>
+                                            <constraint firstAttribute="height" constant="30" id="Raw-V7-xx6"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <state key="normal" title="View Plot">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="viewPlot:" destination="CZ4-MO-1fc" eventType="touchUpInside" id="Xca-Sj-vt4"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="iwe-Nc-5eE" firstAttribute="top" secondItem="8Ve-Dd-q1x" secondAttribute="bottom" constant="8" id="0Mr-q4-p2t"/>
@@ -259,7 +293,6 @@
                                     <constraint firstItem="70N-F3-mpY" firstAttribute="bottom" secondItem="ctc-Fd-M4l" secondAttribute="bottom" id="QQr-zc-2wQ"/>
                                     <constraint firstItem="FG9-lx-5YD" firstAttribute="leading" secondItem="hTS-vV-DVd" secondAttribute="leading" constant="20" id="QUD-4w-0E0"/>
                                     <constraint firstItem="vSn-dd-734" firstAttribute="leading" secondItem="LeY-xm-sil" secondAttribute="leading" id="RU7-EV-2vr"/>
-                                    <constraint firstItem="WAM-cH-fGm" firstAttribute="leading" secondItem="6kG-CN-XqO" secondAttribute="leading" id="RXT-GF-tDd"/>
                                     <constraint firstItem="LeY-xm-sil" firstAttribute="top" secondItem="vSn-dd-734" secondAttribute="bottom" constant="8" id="Re7-p4-oRZ"/>
                                     <constraint firstItem="8Ve-Dd-q1x" firstAttribute="top" secondItem="9IG-ho-WFe" secondAttribute="bottom" constant="4" id="St6-EI-7uv"/>
                                     <constraint firstAttribute="trailing" secondItem="9IG-ho-WFe" secondAttribute="trailing" constant="135" id="UjD-Ie-qB6"/>
@@ -272,11 +305,14 @@
                                     <constraint firstItem="2lY-hI-I5J" firstAttribute="leading" secondItem="ctc-Fd-M4l" secondAttribute="leading" id="gUs-EH-g49"/>
                                     <constraint firstItem="QkF-Yp-f5f" firstAttribute="top" secondItem="hTS-vV-DVd" secondAttribute="top" constant="20" id="gj9-ZO-PMJ"/>
                                     <constraint firstItem="iwe-Nc-5eE" firstAttribute="leading" secondItem="8Ve-Dd-q1x" secondAttribute="leading" id="iRS-9E-3Kp"/>
+                                    <constraint firstItem="E1V-SJ-FP7" firstAttribute="top" secondItem="Seq-2G-Spl" secondAttribute="bottom" constant="2" id="j6x-EK-Jnv"/>
+                                    <constraint firstItem="6kG-CN-XqO" firstAttribute="trailing" secondItem="WAM-cH-fGm" secondAttribute="trailing" constant="1" id="kDK-cH-DlT"/>
                                     <constraint firstAttribute="bottom" secondItem="iwe-Nc-5eE" secondAttribute="bottom" constant="200" id="l7g-u7-YLD"/>
                                     <constraint firstItem="2lY-hI-I5J" firstAttribute="leading" secondItem="dRm-nZ-uxY" secondAttribute="leading" id="nEx-VO-jjX"/>
                                     <constraint firstItem="RNF-XO-HyZ" firstAttribute="top" secondItem="1z4-D6-M1U" secondAttribute="bottom" constant="11" id="qgz-Az-bhL"/>
                                     <constraint firstItem="RNF-XO-HyZ" firstAttribute="leading" secondItem="1z4-D6-M1U" secondAttribute="leading" id="rND-GF-Zkv"/>
                                     <constraint firstItem="dRm-nZ-uxY" firstAttribute="bottom" secondItem="CRt-os-qXU" secondAttribute="bottom" id="sk0-Fh-cnD"/>
+                                    <constraint firstItem="Seq-2G-Spl" firstAttribute="trailing" secondItem="E1V-SJ-FP7" secondAttribute="trailing" constant="-1" id="tGe-F9-vcf"/>
                                     <constraint firstItem="dRm-nZ-uxY" firstAttribute="trailing" secondItem="Seq-2G-Spl" secondAttribute="trailing" constant="1" id="wwD-0M-blc"/>
                                     <constraint firstItem="8Ve-Dd-q1x" firstAttribute="bottom" secondItem="Seq-2G-Spl" secondAttribute="bottom" constant="-6" id="xPA-rc-v9K"/>
                                     <constraint firstItem="FG9-lx-5YD" firstAttribute="top" secondItem="QkF-Yp-f5f" secondAttribute="bottom" constant="8" id="zUt-JQ-7NL"/>
@@ -302,6 +338,7 @@
                         <outlet property="presentValue" destination="6kG-CN-XqO" id="Ont-ak-l9b"/>
                         <outlet property="submit" destination="9IG-ho-WFe" id="VKv-f1-GpX"/>
                         <segue destination="CEK-rb-LMs" kind="modal" identifier="AddFlow" id="HKg-0t-gtj"/>
+                        <segue destination="2Fk-r1-igO" kind="modal" identifier="ViewScatterPlot" modalTransitionStyle="flipHorizontal" id="6XI-2q-FvL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qh2-T1-AhA" sceneMemberID="firstResponder"/>
@@ -606,7 +643,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NBa-n7-sPM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1029" y="520"/>
+            <point key="canvasLocation" x="659" y="660"/>
         </scene>
         <!--Cash Flow View Controller-->
         <scene sceneID="t1l-x3-HUZ">
@@ -748,7 +785,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6qf-Gj-K8L" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1583" y="171"/>
+            <point key="canvasLocation" x="1233" y="97"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="Vex-rW-GRa">
@@ -1050,7 +1087,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jF6-UT-bfQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1029" y="-134"/>
+            <point key="canvasLocation" x="179" y="-660"/>
         </scene>
     </scenes>
     <resources>
