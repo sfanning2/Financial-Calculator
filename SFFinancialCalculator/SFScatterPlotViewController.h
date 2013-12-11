@@ -11,6 +11,16 @@
 #import "SFCashFlowDataSource.h"
 
 @interface SFScatterPlotViewController : UIViewController
+@property (nonatomic,strong) IBOutlet UIView *contentView;
 @property (nonatomic, strong) CPTGraphHostingView *hostView;
 @property (nonatomic, strong) SFCashFlowDataSource<CPTPlotDataSource> *dataSource;
+
+@property (nonatomic, strong) SFCashFlowDataSource<SFLabelSource> *labelSource; //TODO axislabels from here?
+
+
+//TODO
+@property (nonatomic, strong) NSString *graphTitle;
+
+
+- (IBAction)back:(id)sender;
 @end

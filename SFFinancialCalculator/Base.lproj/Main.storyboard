@@ -15,9 +15,42 @@
                     <view key="view" contentMode="scaleToFill" id="5x4-WA-0ck">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pWH-zn-fs7">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="525"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kh6-9o-hL9">
+                                <rect key="frame" x="20" y="530" width="35" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Back">
+                                    <color key="titleColor" red="0.82324717140000003" green="0.94671224990000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="back:" destination="2Fk-r1-igO" eventType="touchUpInside" id="FIg-CC-hjU"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="pWH-zn-fs7" firstAttribute="leading" secondItem="5x4-WA-0ck" secondAttribute="leading" id="4xW-Wh-e4q"/>
+                            <constraint firstItem="fAo-ge-hrL" firstAttribute="top" secondItem="kh6-9o-hL9" secondAttribute="bottom" constant="8" id="7ek-WU-3E9"/>
+                            <constraint firstAttribute="trailing" secondItem="pWH-zn-fs7" secondAttribute="trailing" id="PLF-Sq-yI4"/>
+                            <constraint firstItem="kh6-9o-hL9" firstAttribute="top" secondItem="pWH-zn-fs7" secondAttribute="bottom" constant="5" id="ZLr-Kp-2pF"/>
+                            <constraint firstItem="fAo-ge-hrL" firstAttribute="top" secondItem="pWH-zn-fs7" secondAttribute="bottom" constant="43" id="bZ0-nK-tEn"/>
+                            <constraint firstItem="kh6-9o-hL9" firstAttribute="leading" secondItem="5x4-WA-0ck" secondAttribute="leading" constant="20" id="m7c-Ye-Jhq"/>
+                            <constraint firstItem="pWH-zn-fs7" firstAttribute="top" secondItem="5x4-WA-0ck" secondAttribute="top" id="xzE-Cj-WXF"/>
+                        </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="hhU-Rz-SFB"/>
+                    <toolbarItems>
+                        <barButtonItem title="Item" id="hdL-11-qtf"/>
+                    </toolbarItems>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="contentView" destination="pWH-zn-fs7" id="HWM-sM-nST"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uTx-hh-rsd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -104,7 +137,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9IG-ho-WFe">
-                                        <rect key="frame" x="136" y="350" width="65" height="30"/>
+                                        <rect key="frame" x="235" y="350" width="65" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Calculate">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -276,10 +309,11 @@
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="iwe-Nc-5eE" firstAttribute="top" secondItem="8Ve-Dd-q1x" secondAttribute="bottom" constant="8" id="0Mr-q4-p2t"/>
+                                    <constraint firstItem="dRm-nZ-uxY" firstAttribute="trailing" secondItem="9IG-ho-WFe" secondAttribute="trailing" constant="1" id="7c6-eY-5SE"/>
                                     <constraint firstItem="LeY-xm-sil" firstAttribute="bottom" secondItem="2lY-hI-I5J" secondAttribute="bottom" id="8kf-Bt-kd5"/>
                                     <constraint firstItem="CRt-os-qXU" firstAttribute="leading" secondItem="LeY-xm-sil" secondAttribute="leading" id="AR2-AA-5jH"/>
                                     <constraint firstItem="6kG-CN-XqO" firstAttribute="leading" secondItem="1z4-D6-M1U" secondAttribute="trailing" constant="34" id="D4u-9Q-5VK"/>
-                                    <constraint firstItem="9IG-ho-WFe" firstAttribute="leading" secondItem="hTS-vV-DVd" secondAttribute="leading" constant="136" id="DKE-gD-1lw"/>
+                                    <constraint firstItem="9IG-ho-WFe" firstAttribute="leading" secondItem="hTS-vV-DVd" secondAttribute="leading" constant="235" id="DKE-gD-1lw"/>
                                     <constraint firstItem="70N-F3-mpY" firstAttribute="leading" secondItem="Wcl-vo-9cG" secondAttribute="leading" id="Eip-ha-PfW"/>
                                     <constraint firstItem="1z4-D6-M1U" firstAttribute="bottom" secondItem="6kG-CN-XqO" secondAttribute="bottom" id="Ekg-f0-MVI"/>
                                     <constraint firstItem="9IG-ho-WFe" firstAttribute="top" secondItem="hTS-vV-DVd" secondAttribute="top" constant="350" id="H2p-Xv-2nn"/>
@@ -344,6 +378,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qh2-T1-AhA" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="653" y="-134"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="Em5-HS-Ejh">
+            <objects>
+                <viewController id="hM5-Ti-q9o" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="KTj-Ob-FRR"/>
+                        <viewControllerLayoutGuide type="bottom" id="Vjm-JJ-Jxe"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Bkk-pg-mOY">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tga-4F-wwS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-147" y="1049"/>
         </scene>
         <!--Annuity View Controller - Annuities-->
         <scene sceneID="l58-Pb-GIz">

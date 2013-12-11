@@ -60,10 +60,7 @@
 			
 		case CPTScatterPlotFieldY:
 			if ([plot.identifier isEqual:@"SUM"] == YES) {
-                NSArray *relevantCashFlows = [_cashFlows subarrayWithRange:NSMakeRange (0, index + 1)];//include the current index
-                // Not sure if right...
-                double value =  [calc presentValueOfCashFlows:relevantCashFlows forYield:_annualYield withPeriodsPerYear:_periodsPerYear];
-                double valueAtIndex = [calc futureValueOf:[NSNumber numberWithDouble:value] forYield:_annualYield withPeriodsPerYear:_periodsPerYear andTotalCompounds:((int)index)];
+                double valueAtIndex = [self getSUMValueAtIndex:index];
                 return [NSNumber numberWithDouble:valueAtIndex];
                 break;
             }
@@ -84,12 +81,49 @@
                     int compounds = (int)index - (int)flowIndex;
                     NSNumber *flowValue = [_cashFlows objectAtIndex:flowIndex];
                     double value = [calc futureValueOf:flowValue forYield:_annualYield withPeriodsPerYear:_periodsPerYear andTotalCompounds:compounds];
+                    NSLog(@"%f", value);
                     return [NSNumber numberWithDouble:value];
                 }
                 break;
             }
 	}
 	return [NSDecimalNumber zero];
+}
+
+-(NSString *)labelOnXAxisForIndex:(NSUInteger)index
+{
+    return [NSString stringWithFormat:@"%.2f",((double)index / _periodsPerYear)];
+}
+
+-(NSString *)labelOnYAxisForIndex:(NSUInteger)index
+{
+    return nil;
+}
+
+-(NSUInteger)getXCount
+{
+    return [_cashFlows count];
+}
+
+-(NSUInteger)getYCount
+{
+    return [self getXCount];
+}
+
+-(NSUInteger)getYMaxValue
+{
+    return [self getSUMValueAtIndex:([self getYCount] - 1)];
+}
+
+-(double)getSUMValueAtIndex:(NSUInteger)index
+{
+    NSArray *relevantCashFlows = [_cashFlows subarrayWithRange:NSMakeRange (0, index + 1)];//include the current index
+    // Not sure if right...
+    double value =  [calc presentValueOfCashFlows:relevantCashFlows forYield:_annualYield withPeriodsPerYear:_periodsPerYear];
+    double valueAtIndex = [calc futureValueOf:[NSNumber numberWithDouble:value] forYield:_annualYield withPeriodsPerYear:_periodsPerYear andTotalCompounds:((int)index)];
+    NSLog(@"Present sum:%f", value);
+    NSLog(@"Future sum:%f", valueAtIndex);
+    return valueAtIndex;
 }
 
 @end

@@ -50,9 +50,10 @@
 }
 
 -(void)configureHost {
-	self.hostView = [(CPTGraphHostingView *) [CPTGraphHostingView alloc] initWithFrame:self.view.bounds];
+	self.hostView = [(CPTGraphHostingView *) [CPTGraphHostingView alloc] initWithFrame:self.contentView.bounds];
 	self.hostView.allowPinchScaling = YES;
-	[self.view addSubview:self.hostView];
+	[self.contentView addSubview:self.hostView];
+    NSLog(@"%@", self.contentView);
 }
 
 -(void)configureGraph {
@@ -142,43 +143,29 @@
 }
 
 -(void)configureAxes {
-	// 1 - Create styles
-	CPTMutableTextStyle *axisTitleStyle = [CPTMutableTextStyle textStyle];
-	axisTitleStyle.color = [CPTColor whiteColor];
-	axisTitleStyle.fontName = @"Helvetica-Bold";
-	axisTitleStyle.fontSize = 12.0f;
-	CPTMutableLineStyle *axisLineStyle = [CPTMutableLineStyle lineStyle];
-	axisLineStyle.lineWidth = 2.0f;
-	axisLineStyle.lineColor = [CPTColor whiteColor];
-	CPTMutableTextStyle *axisTextStyle = [[CPTMutableTextStyle alloc] init];
-	axisTextStyle.color = [CPTColor whiteColor];
-	axisTextStyle.fontName = @"Helvetica-Bold";
-	axisTextStyle.fontSize = 11.0f;
-	CPTMutableLineStyle *tickLineStyle = [CPTMutableLineStyle lineStyle];
-	tickLineStyle.lineColor = [CPTColor whiteColor];
-	tickLineStyle.lineWidth = 2.0f;
-	CPTMutableLineStyle *gridLineStyle = [CPTMutableLineStyle lineStyle];
-	tickLineStyle.lineColor = [CPTColor blackColor];
-	tickLineStyle.lineWidth = 1.0f;
 	// 2 - Get axis set
 	CPTXYAxisSet *axisSet = (CPTXYAxisSet *) self.hostView.hostedGraph.axisSet;
 	// 3 - Configure x-axis
 	CPTAxis *x = axisSet.xAxis;
-	x.title = @"Time (Years)";
-	x.titleTextStyle = axisTitleStyle;
-	x.titleOffset = 15.0f;
-	x.axisLineStyle = axisLineStyle;
-	x.labelingPolicy = CPTAxisLabelingPolicyNone;
-	x.labelTextStyle = axisTextStyle;
-	x.majorTickLineStyle = axisLineStyle;
-	x.majorTickLength = 4.0f;
-	x.tickDirection = CPTSignNegative;
-//	CGFloat dateCount = [[[CPDStockPriceStore sharedInstance] datesInMonth] count];
-//	NSMutableSet *xLabels = [NSMutableSet setWithCapacity:dateCount];
-//	NSMutableSet *xLocations = [NSMutableSet setWithCapacity:dateCount];
-//	NSInteger i = 0;
-//	for (NSString *date in [[CPDStockPriceStore sharedInstance] datesInMonth]) {
-//		CPTAxisLabel *label = [[CPTAxisLabel alloc] initWithText:date  textStyle:x.labelTextStyle];
+	[self configureXAxis:x];
+	CGFloat xMax = [self.labelSource getXCount];
+	NSMutableSet *xLabels = [NSMutableSet setWithCapacity:xMax];
+	NSMutableSet *xLocations = [NSMutableSet setWithCapacity:xMax];
+	NSInteger i = 0;
+    for (i = 0; i < xMax; i ++)
+    {
+        NSString *text =[self.labelSource labelOnXAxisForIndex:i];
+        CPTAxisLabel *label = [[CPTAxisLabel alloc] initWithText:text textStyle:x.labelTextStyle];
+//        CPTAxisLabel *label = [[CPTAxisLabel alloc] initWithText:@"a" textStyle:x.labelTextStyle];
+        label.tickLocation = CPTDecimalFromCGFloat((CGFloat)[ text doubleValue]);
+        label.offset = x.majorTickLength;
+		if (label) {
+			[xLabels addObject:label];
+			[xLocations addObject:[NSNumber numberWithFloat:(CGFloat)i]];
+		}
+    }
+//	for (NSString *year in [[CPDStockPriceStore sharedInstance] datesInMonth]) {
+//		CPTAxisLabel *label = [[CPTAxisLabel alloc] initWithText:year  textStyle:x.labelTextStyle];
 //		CGFloat location = i++;
 //		label.tickLocation = CPTDecimalFromCGFloat(location);
 //		label.offset = x.majorTickLength;
@@ -187,52 +174,127 @@
 //			[xLocations addObject:[NSNumber numberWithFloat:location]];
 //		}
 //	}
-//	x.axisLabels = xLabels;
-//	x.majorTickLocations = xLocations;
+	x.axisLabels = xLabels;
+	x.majorTickLocations = xLocations;
+    
 	// 4 - Configure y-axis
 	CPTAxis *y = axisSet.yAxis;
-	y.title = @"Price";
-	y.titleTextStyle = axisTitleStyle;
-	y.titleOffset = -40.0f;
-	y.axisLineStyle = axisLineStyle;
-	y.majorGridLineStyle = gridLineStyle;
-	y.labelingPolicy = CPTAxisLabelingPolicyNone;
-	y.labelTextStyle = axisTextStyle;
-	y.labelOffset = 16.0f;
-	y.majorTickLineStyle = axisLineStyle;
-	y.majorTickLength = 4.0f;
-	y.minorTickLength = 2.0f;
-	y.tickDirection = CPTSignPositive;
-	NSInteger majorIncrement = 100;
-	NSInteger minorIncrement = 50;
-	CGFloat yMax = 700.0f;  // should determine dynamically based on max price
+	[self configureYAxis:y];
+	
+	CGFloat yMax = [self.labelSource getYMaxValue];//700.0f;  // should determine dynamically based on max price [self.labelSource getYMaxValue];//
+    NSInteger majorIncrement = 100;//100 //yMax / 10
+	NSInteger minorIncrement = 50;//FIIIIXX
+    NSLog(@"%f",yMax);
 	NSMutableSet *yLabels = [NSMutableSet set];
 	NSMutableSet *yMajorLocations = [NSMutableSet set];
 	NSMutableSet *yMinorLocations = [NSMutableSet set];
-//	for (NSInteger j = minorIncrement; j <= yMax; j += minorIncrement) {
-//		NSUInteger mod = j % majorIncrement;
-//		if (mod == 0) {
-//			CPTAxisLabel *label = [[CPTAxisLabel alloc] initWithText:[NSString stringWithFormat:@"%i", j] textStyle:y.labelTextStyle];
-//			NSDecimal location = CPTDecimalFromInteger(j);
-//			label.tickLocation = location;
-//			label.offset = -y.majorTickLength - y.labelOffset;
-//			if (label) {
-//				[yLabels addObject:label];
-//			}
-//			[yMajorLocations addObject:[NSDecimalNumber decimalNumberWithDecimal:location]];
-//		} else {
-//			[yMinorLocations addObject:[NSDecimalNumber decimalNumberWithDecimal:CPTDecimalFromInteger(j)]];
-//		}
-//	}
+	for (NSInteger j = minorIncrement; j <= (yMax + majorIncrement); j += minorIncrement) {
+		NSUInteger mod = j % majorIncrement;
+		if (mod == 0) {
+			CPTAxisLabel *label = [[CPTAxisLabel alloc] initWithText:[NSString stringWithFormat:@"%i", j] textStyle:y.labelTextStyle];
+			NSDecimal location = CPTDecimalFromInteger(j);
+			label.tickLocation = location;
+			label.offset = -y.majorTickLength - y.labelOffset;
+			if (label) {
+				[yLabels addObject:label];
+			}
+			[yMajorLocations addObject:[NSDecimalNumber decimalNumberWithDecimal:location]];
+		} else {
+			[yMinorLocations addObject:[NSDecimalNumber decimalNumberWithDecimal:CPTDecimalFromInteger(j)]];
+		}
+	}
 	y.axisLabels = yLabels;
 	y.majorTickLocations = yMajorLocations;
 	y.minorTickLocations = yMinorLocations;
 }
 
 
+-(void)configureXAxis:(CPTAxis *)x
+{
+    x.title = @"Time (Years)";
+	x.titleTextStyle = [self getAxisTitleStyle];
+	x.titleOffset = 20.0f;
+    x.labelOffset = 5.0f;
+	x.axisLineStyle = [self getAxisLineStyle];
+	x.labelingPolicy = CPTAxisLabelingPolicyNone;
+	x.labelTextStyle = [self getAxisTextStyle];
+	x.majorTickLineStyle = [self getAxisLineStyle];
+	x.majorTickLength = 1.0f;
+	x.tickDirection = CPTSignNegative;
+    x.labelRotation = M_PI_2;
+    x.minorTickLabelRotation = M_PI_2;
+}
+
+-(void)configureYAxis:(CPTAxis *)y
+{
+    y.title = @"Price";
+	y.titleTextStyle = [self getAxisTitleStyle];
+	y.titleOffset = -40.0f;
+	y.axisLineStyle = [self getAxisLineStyle];
+	y.majorGridLineStyle = [self getGridLineStyle];
+	y.labelingPolicy = CPTAxisLabelingPolicyNone;
+	y.labelTextStyle = [self getAxisTextStyle];
+	y.labelOffset = 16.0f;
+	y.majorTickLineStyle = [self getAxisLineStyle];
+	y.majorTickLength = 4.0f;
+	y.minorTickLength = 2.0f;
+	y.tickDirection = CPTSignPositive;
+}
+
+-(CPTMutableTextStyle *)getAxisTextStyle
+{
+    CPTMutableTextStyle *axisTextStyle = [[CPTMutableTextStyle alloc] init];
+	axisTextStyle.color = [CPTColor whiteColor];
+	axisTextStyle.fontName = @"Helvetica-Bold";
+	axisTextStyle.fontSize = 11.0f;
+    return axisTextStyle;
+}
+
+-(CPTMutableTextStyle *)getAxisTitleStyle
+{
+    CPTMutableTextStyle *axisTitleStyle = [CPTMutableTextStyle textStyle];
+	axisTitleStyle.color = [CPTColor whiteColor];
+	axisTitleStyle.fontName = @"Helvetica-Bold";
+	axisTitleStyle.fontSize = 12.0f;
+    return axisTitleStyle;
+}
+
+- (CPTMutableLineStyle *)getAxisLineStyle
+{
+    CPTMutableLineStyle *axisLineStyle = [CPTMutableLineStyle lineStyle];
+	axisLineStyle.lineWidth = 2.0f;
+	axisLineStyle.lineColor = [CPTColor whiteColor];
+    return axisLineStyle;
+}
+
+- (CPTMutableLineStyle *)getGridLineStyle
+{
+    CPTMutableLineStyle *gridLineStyle = [CPTMutableLineStyle lineStyle];
+	gridLineStyle.lineColor = [CPTColor blackColor];
+	gridLineStyle.lineWidth = 1.0f;
+    return gridLineStyle;
+}
+
+- (CPTMutableLineStyle *)getTickLineStyle
+{
+    CPTMutableLineStyle *tickLineStyle = [CPTMutableLineStyle lineStyle];
+	tickLineStyle.lineColor = [CPTColor whiteColor];
+	tickLineStyle.lineWidth = 2.0f;
+    return tickLineStyle;
+}
+
 #pragma mark - Rotation
 -(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     return (interfaceOrientation == UIInterfaceOrientationLandscapeLeft);
+}
+
+-(BOOL)shouldAutorotate {
+    return ([UIApplication sharedApplication].statusBarOrientation == UIInterfaceOrientationLandscapeLeft);
+}
+#pragma mark - Dismissal
+- (IBAction)back:(id)sender
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

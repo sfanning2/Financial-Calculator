@@ -213,7 +213,9 @@
     {
         // Do something
         SFScatterPlotViewController *dest = segue.destinationViewController;
-        dest.dataSource = [[SFCashFlowDataSource alloc]initWithCashFlows:flows annualYield:y years:n periodsPerYear:m];
+        SFCashFlowDataSource *ds = [[SFCashFlowDataSource alloc]initWithCashFlows:flows annualYield:y years:n periodsPerYear:m];
+        dest.dataSource = ds;
+        dest.labelSource = ds;
     }
 }
 
