@@ -24,6 +24,9 @@
 		260AA03218403D5C00024E9A /* SFPresentValueCalculator.m in Sources */ = {isa = PBXBuildFile; fileRef = 260AA03118403D5C00024E9A /* SFPresentValueCalculator.m */; };
 		260AA0371840497600024E9A /* SFPresentValueCalculatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 260AA0361840497600024E9A /* SFPresentValueCalculatorTests.m */; };
 		260AA03A18404EFC00024E9A /* SFPresentValueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 260AA03918404EFC00024E9A /* SFPresentValueViewController.m */; };
+		26287D6C185914D4006196CC /* SFVentureCapitalCalculator.m in Sources */ = {isa = PBXBuildFile; fileRef = 26287D6B185914D4006196CC /* SFVentureCapitalCalculator.m */; };
+		26287D6F18591BDB006196CC /* SFInvestment.m in Sources */ = {isa = PBXBuildFile; fileRef = 26287D6E18591BDB006196CC /* SFInvestment.m */; };
+		26287D7218593260006196CC /* SFVentureCapitalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26287D7118593260006196CC /* SFVentureCapitalViewController.m */; };
 		2658E6C0184533D700FAE0A0 /* SFAnnuityCalculatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2658E6BF184533D700FAE0A0 /* SFAnnuityCalculatorTests.m */; };
 		2658E6C61845669700FAE0A0 /* SFCashFlowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2658E6C51845669700FAE0A0 /* SFCashFlowViewController.m */; };
 		268975421841B08A009DD2F3 /* SFClosedFormBondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 268975411841B08A009DD2F3 /* SFClosedFormBondViewController.m */; };
@@ -72,6 +75,12 @@
 		260AA0361840497600024E9A /* SFPresentValueCalculatorTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFPresentValueCalculatorTests.m; sourceTree = "<group>"; };
 		260AA03818404EFC00024E9A /* SFPresentValueViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFPresentValueViewController.h; sourceTree = "<group>"; };
 		260AA03918404EFC00024E9A /* SFPresentValueViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFPresentValueViewController.m; sourceTree = "<group>"; };
+		26287D6A185914D4006196CC /* SFVentureCapitalCalculator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFVentureCapitalCalculator.h; sourceTree = "<group>"; };
+		26287D6B185914D4006196CC /* SFVentureCapitalCalculator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFVentureCapitalCalculator.m; sourceTree = "<group>"; };
+		26287D6D18591BDB006196CC /* SFInvestment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFInvestment.h; sourceTree = "<group>"; };
+		26287D6E18591BDB006196CC /* SFInvestment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFInvestment.m; sourceTree = "<group>"; };
+		26287D7018593260006196CC /* SFVentureCapitalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFVentureCapitalViewController.h; sourceTree = "<group>"; };
+		26287D7118593260006196CC /* SFVentureCapitalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFVentureCapitalViewController.m; sourceTree = "<group>"; };
 		2658E6BF184533D700FAE0A0 /* SFAnnuityCalculatorTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFAnnuityCalculatorTests.m; sourceTree = "<group>"; };
 		2658E6C41845669700FAE0A0 /* SFCashFlowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFCashFlowViewController.h; sourceTree = "<group>"; };
 		2658E6C51845669700FAE0A0 /* SFCashFlowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFCashFlowViewController.m; sourceTree = "<group>"; };
@@ -240,6 +249,8 @@
 				268975411841B08A009DD2F3 /* SFClosedFormBondViewController.m */,
 				26C961101843B58B00DDD2D1 /* SFAnnuityViewController.h */,
 				26C961111843B58B00DDD2D1 /* SFAnnuityViewController.m */,
+				26287D7018593260006196CC /* SFVentureCapitalViewController.h */,
+				26287D7118593260006196CC /* SFVentureCapitalViewController.m */,
 				260AA00F184036A300024E9A /* Images.xcassets */,
 				2658E6C41845669700FAE0A0 /* SFCashFlowViewController.h */,
 				2658E6C51845669700FAE0A0 /* SFCashFlowViewController.m */,
@@ -295,6 +306,10 @@
 				26C961141843BAC200DDD2D1 /* SFClosedFormBondCalculator.m */,
 				26C961161843C40F00DDD2D1 /* SFAnnuityCalculator.h */,
 				26C961171843C40F00DDD2D1 /* SFAnnuityCalculator.m */,
+				26287D6A185914D4006196CC /* SFVentureCapitalCalculator.h */,
+				26287D6B185914D4006196CC /* SFVentureCapitalCalculator.m */,
+				26287D6D18591BDB006196CC /* SFInvestment.h */,
+				26287D6E18591BDB006196CC /* SFInvestment.m */,
 			);
 			name = Logic;
 			sourceTree = "<group>";
@@ -501,10 +516,13 @@
 				2658E6C61845669700FAE0A0 /* SFCashFlowViewController.m in Sources */,
 				26C961181843C40F00DDD2D1 /* SFAnnuityCalculator.m in Sources */,
 				260AA005184036A300024E9A /* SFAppDelegate.m in Sources */,
+				26287D6F18591BDB006196CC /* SFInvestment.m in Sources */,
 				26C961121843B58B00DDD2D1 /* SFAnnuityViewController.m in Sources */,
 				260AA03A18404EFC00024E9A /* SFPresentValueViewController.m in Sources */,
+				26287D7218593260006196CC /* SFVentureCapitalViewController.m in Sources */,
 				260AA03218403D5C00024E9A /* SFPresentValueCalculator.m in Sources */,
 				260AA02F184037F800024E9A /* SFCalculator.m in Sources */,
+				26287D6C185914D4006196CC /* SFVentureCapitalCalculator.m in Sources */,
 				26AA4705185572450039F4D9 /* SFScatterPlotViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
