@@ -23,11 +23,12 @@
     self = [super init];
     if (self)
     {
+        pvCalc = [[SFPresentValueCalculator alloc] init];
         _timeToTerm = timeToTerm;
         _termPER = termPER;
         _termNetIncome = termNetIncome;
         _startingShares = startingShares;
-        _investmentRounds = [self sortInvestmentRounds:investmentRounds];
+        _investmentRounds = [SFVentureCapitalCalculator sortInvestmentRounds:investmentRounds];
         for (SFInvestment * investment in _investmentRounds)
         {
             investment.exitTime = timeToTerm;
@@ -45,12 +46,12 @@
             oldShares = investment.totalShares;
             investment.currentSharePrice = investment.amount / (double) investment.newShares;
         }
-        pvCalc = [[SFPresentValueCalculator alloc] init];
+        
     }
     return self;
 }
 
--(NSArray *)sortInvestmentRounds:(NSArray *)investmentRounds
++(NSArray *)sortInvestmentRounds:(NSArray *)investmentRounds
 {
     NSArray *sortedArray;
     sortedArray = [investmentRounds sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
@@ -74,7 +75,7 @@
 - (double)requiredFutureValueAtExitForInvestment:(SFInvestment *)investment
 {
     int compounds = round(investment.exitTime - investment.entryTime);
-    double result =[pvCalc futureValueOf:[NSNumber numberWithDouble:investment.amount] forYield:investment.requiredIRR withPeriodsPerYear:1 andTotalCompounds:compounds];
+    double result =[pvCalc futureValueOf:[NSNumber numberWithDouble:investment.amount] forYield:investment.requiredIRR withPeriodsPerYear:1.0 andTotalCompounds:compounds];
     return result;
 }
 
@@ -95,9 +96,9 @@
 
 -(NSUInteger)newSharesForInvestment:(SFInvestment *)investment withOldShares:(NSUInteger)oldShares
 {
-    NSUInteger shares = investment.currentPercentOwnership
+    NSUInteger shares = round(investment.currentPercentOwnership
     / (1.0 - investment.currentPercentOwnership)
-    * oldShares;
+    * (double) oldShares);
     return shares;
 }
 

@@ -33,8 +33,8 @@
             startingShares:(double)startingShares
                     investmentRounds:(NSArray *)investmentRounds;
 
-- (double)totalTerminalValue;
 
-- (double)finalOwnershipRequiredForInvestment:(SFInvestment *)investment;
+
++(NSArray *)sortInvestmentRounds:(NSArray *)investmentRounds;
 
 @end

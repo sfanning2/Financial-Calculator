@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface SFVentureCapitalViewController : UIViewController
+#import "SFInvestmentRoundViewController.h"
+@interface SFVentureCapitalViewController : UIViewController <UITextFieldDelegate, SFInvestmentDelegate>
 /** noon blank; numerical */
 @property (nonatomic, weak) IBOutlet UITextField *timeToTermTextField;
 /** non blank; numerical */
@@ -23,5 +23,6 @@
 @property (nonatomic, weak) IBOutlet UILabel *roundsLabel;
 
 - (IBAction)addInvestmentRound:(id)sender;
-- (IBAction)calculate:(id)sender;
+- (IBAction)submit:(id)sender;
+- (IBAction)clearRounds:(id)sender;
 @end

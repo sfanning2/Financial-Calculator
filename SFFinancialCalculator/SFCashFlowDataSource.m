@@ -90,6 +90,19 @@
 	return [NSDecimalNumber zero];
 }
 
+-(double)getSUMValueAtIndex:(NSUInteger)index
+{
+    NSArray *relevantCashFlows = [_cashFlows subarrayWithRange:NSMakeRange (0, index + 1)];//include the current index
+    // Not sure if right...
+    double value =  [calc presentValueOfCashFlows:relevantCashFlows forYield:_annualYield withPeriodsPerYear:_periodsPerYear];
+    double valueAtIndex = [calc futureValueOf:[NSNumber numberWithDouble:value] forYield:_annualYield withPeriodsPerYear:_periodsPerYear andTotalCompounds:((int)index)];
+    NSLog(@"Present sum:%f", value);
+    NSLog(@"Future sum:%f", valueAtIndex);
+    return valueAtIndex;
+}
+
+#pragma mark - label protocol thing
+
 -(NSString *)labelOnXAxisForIndex:(NSUInteger)index
 {
     return [NSString stringWithFormat:@"%.2f",((double)index / _periodsPerYear)];
@@ -115,15 +128,10 @@
     return [self getSUMValueAtIndex:([self getYCount] - 1)];
 }
 
--(double)getSUMValueAtIndex:(NSUInteger)index
-{
-    NSArray *relevantCashFlows = [_cashFlows subarrayWithRange:NSMakeRange (0, index + 1)];//include the current index
-    // Not sure if right...
-    double value =  [calc presentValueOfCashFlows:relevantCashFlows forYield:_annualYield withPeriodsPerYear:_periodsPerYear];
-    double valueAtIndex = [calc futureValueOf:[NSNumber numberWithDouble:value] forYield:_annualYield withPeriodsPerYear:_periodsPerYear andTotalCompounds:((int)index)];
-    NSLog(@"Present sum:%f", value);
-    NSLog(@"Future sum:%f", valueAtIndex);
-    return valueAtIndex;
-}
+
+
+-(NSString *)getPlotTitle {return @"Cash Flows";}
+-(NSString *)getXAxisTitle; {return @"Time (Years)";}
+-(NSString *)getYAxisTitle; {return @"Value";}
 
 @end

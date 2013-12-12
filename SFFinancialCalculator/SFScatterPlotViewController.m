@@ -62,7 +62,7 @@
 	[graph applyTheme:[CPTTheme themeNamed:kCPTDarkGradientTheme]];
 	self.hostView.hostedGraph = graph;
 	// 2 - Set graph title
-	NSString *title = @"Cash Flows";
+	NSString *title = [self.labelSource getPlotTitle];
 	graph.title = title;
 	// 3 - Create and set text style
 	CPTMutableTextStyle *titleStyle = [CPTMutableTextStyle textStyle];
@@ -92,7 +92,7 @@
 	[graph addPlot:sumPlot toPlotSpace:plotSpace];
     
     NSMutableArray *plots = [[NSMutableArray alloc] init];
-    for (int i = 0; i < [self.dataSource.cashFlows count]; i++) {
+    for (int i = 0; i < [self.labelSource getXCount]; i++) {
         CPTScatterPlot *plot = [[CPTScatterPlot alloc] init];
         plot.dataSource = self.dataSource;
         plot.identifier = [NSString stringWithFormat:@"%d",i];
@@ -211,7 +211,7 @@
 
 -(void)configureXAxis:(CPTAxis *)x
 {
-    x.title = @"Time (Years)";
+    x.title = [self.labelSource getXAxisTitle];
 	x.titleTextStyle = [self getAxisTitleStyle];
 	x.titleOffset = 20.0f;
     x.labelOffset = 5.0f;
@@ -227,7 +227,7 @@
 
 -(void)configureYAxis:(CPTAxis *)y
 {
-    y.title = @"Price";
+    y.title = [self.labelSource getYAxisTitle];
 	y.titleTextStyle = [self getAxisTitleStyle];
 	y.titleOffset = -40.0f;
 	y.axisLineStyle = [self getAxisLineStyle];

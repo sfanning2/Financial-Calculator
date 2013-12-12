@@ -13,9 +13,9 @@
 @interface SFScatterPlotViewController : UIViewController
 @property (nonatomic,strong) IBOutlet UIView *contentView;
 @property (nonatomic, strong) CPTGraphHostingView *hostView;
-@property (nonatomic, strong) SFCashFlowDataSource<CPTPlotDataSource> *dataSource;
+@property (nonatomic, strong) id<CPTPlotDataSource> dataSource;
 
-@property (nonatomic, strong) SFCashFlowDataSource<SFLabelSource> *labelSource; //TODO axislabels from here?
+@property (nonatomic, strong) id<SFLabelSource> labelSource; 
 
 
 //TODO

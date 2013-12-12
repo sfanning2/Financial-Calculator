@@ -8,14 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "CorePlot-CocoaTouch.h"
-
-@protocol SFLabelSource
--(NSString *)labelOnYAxisForIndex:(NSUInteger)index;
--(NSString *)labelOnXAxisForIndex:(NSUInteger)index;
--(NSUInteger)getXCount;
--(NSUInteger)getYCount;
--(NSUInteger)getYMaxValue;
-@end
+#import "SFLabelSource.h"
 
 @interface SFCashFlowDataSource : NSObject <CPTPlotDataSource, SFLabelSource>
 @property (nonatomic, strong) NSArray *cashFlows;
