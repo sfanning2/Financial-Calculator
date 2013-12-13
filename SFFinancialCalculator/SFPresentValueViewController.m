@@ -9,6 +9,8 @@
 #import "SFPresentValueViewController.h"
 #import "SFPresentValueCalculator.h"
 #import "SFCashFlowViewController.h"
+#import "SFScatterPlotViewController.h"
+#import "SFCashFlowDataSource.h"
 
 @interface SFPresentValueViewController ()
 
@@ -65,6 +67,43 @@
     flows = [[NSMutableArray alloc]init];
     _cashFlowLabel.text = @"";
     [self displayCashFlowLabel];
+}
+
+- (BOOL) readData {
+    //Read input
+    NSString * pVText = [_presentValue text];
+    NSString * MText = [_numberOfTimesCompounded text];
+    NSString * mText = [_compoundingFrequency text];
+    NSString * nText = [_interestPeriods text];
+    NSString *yText = [_annualInterestRate text];
+    
+    // Deal with mnM
+    
+    if ([mText length] == 0) {
+        // Problem
+        [self alert:@"Please supply m!"];
+        return NO;
+    }
+    
+    M = [MText intValue];
+    n = [nText intValue];
+    m = [mText doubleValue];
+    
+    // Calculate missing values
+    M = ([MText length] == 0) ? n*m : M;
+    m = ([mText length] == 0) ? (double)M/(double)n : m;
+    n = ([nText length] == 0) ? M/m : n;
+    
+    // M is one less than count
+    
+    PV = [pVText doubleValue];
+    y = [yText doubleValue];
+    // M must equal array
+    // Add missing flows
+    for (NSUInteger i = [flows count]; i <= M; i++) {
+        [flows addObject:[NSNumber numberWithDouble:0.0]];
+    }
+    return YES;
 }
 - (IBAction)submit:(id)sender
 {
@@ -133,6 +172,13 @@
 
 }
 
+- (IBAction)viewPlot:(id)sender
+{
+    // read values
+    if([self readData])
+        [self performSegueWithIdentifier:@"ViewScatterPlot" sender:self];
+}
+
 - (void)alert:(NSString *)errorMessage
 {
     [self alert:errorMessage title:@"Error"];
@@ -162,6 +208,14 @@
         SFCashFlowViewController *dest = segue.destinationViewController;
         dest.cashFlowDelegate = self;
         
+    }
+    else if ([segue.identifier isEqualToString:@"ViewScatterPlot"])
+    {
+        // Do something
+        SFScatterPlotViewController *dest = segue.destinationViewController;
+        SFCashFlowDataSource *ds = [[SFCashFlowDataSource alloc]initWithCashFlows:flows annualYield:y years:n periodsPerYear:m];
+        dest.dataSource = ds;
+        dest.labelSource = ds;
     }
 }
 
